@@ -1,0 +1,25 @@
+name: test
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.13
+      - name: Get Dependencies
+        run: go get -v -t -d ./...
+      - name: Go Test
+        run: go test ./...
