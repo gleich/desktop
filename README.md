@@ -1,15 +1,14 @@
-<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich"]:end -->
-# {{ PROJECT_NAME }}
+# runningapps
 
-{{ PROJECT_DESCRIPTION }}
+📦 Golang package for interfacing with desktop applications
 
-![build](https://github.com/Matt-Gleich/{{ PROJECT_NAME }}/workflows/build/badge.svg)
-![test](https://github.com/Matt-Gleich/{{ PROJECT_NAME }}/workflows/test/badge.svg)
-![format](https://github.com/Matt-Gleich/{{ PROJECT_NAME }}/workflows/format/badge.svg)
+![build](https://github.com/Matt-Gleich/runningapps/workflows/build/badge.svg)
+![test](https://github.com/Matt-Gleich/runningapps/workflows/test/badge.svg)
+![format](https://github.com/Matt-Gleich/runningapps/workflows/format/badge.svg)
 
 <!-- DO NOT REMOVE - contributor_list:start -->
-## 👥 Contributors
 
+## 👥 Contributors
 
 - **[@Matt-Gleich](https://github.com/Matt-Gleich)**
 
