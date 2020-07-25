@@ -1,3 +1,4 @@
+<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich"]:end -->
 # {{ PROJECT_NAME }}
 
 {{ PROJECT_DESCRIPTION }}
@@ -7,11 +8,9 @@
 ![format](https://github.com/Matt-Gleich/{{ PROJECT_NAME }}/workflows/format/badge.svg)
 
 <!-- DO NOT REMOVE - contributor_list:start -->
-
 ## 👥 Contributors
 
-- **[@Matt-Gleich](https://github.com/Matt-Gleich)** (38 contributions)
 
-- **[@whitesource-bolt-for-github[bot]](https://github.com/apps/whitesource-bolt-for-github)** (1 contribution)
+- **[@Matt-Gleich](https://github.com/Matt-Gleich)**
 
 <!-- DO NOT REMOVE - contributor_list:end -->
