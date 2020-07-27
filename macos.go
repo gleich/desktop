@@ -30,5 +30,16 @@ func MacOSApplications() []string {
 		}
 	}
 
-	return cleanApplications
+// MacOSQuitApp ... Quit a desktop application for a mac system
+func MacOSQuitApp(name string) error {
+	checkMacOS()
+	cleanedName := strings.ReplaceAll(name, " ", "\\ ")
+	err := exec.Command("pkill", "-x", cleanedName).Run()
+	return err
+}
+
+func checkMacOS() {
+	if runtime.GOOS != "darwin" {
+		statuser.ErrorMsg("MacOSApplications function only supported on a darwin based system", 1)
+	}
 }
