@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// MacOSApplications ... Get a list of all running desktop application for a mac system
+// MacOSApplications ... Get a list of all running desktop applications for a mac system
 func MacOSApplications() ([]string, error) {
 	if err := checkMacOS(); err != nil {
 		return []string{}, err
