@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/Matt-Gleich/go_template/runningapps"
 )
 
 func main() {
-	fmt.Println(runningapps.LinuxApplications())
+	apps, _ := runningapps.LinuxApplications()
+	runningapps.LinuxQuitApp(apps[2])
 }

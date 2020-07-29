@@ -59,6 +59,16 @@ func LinuxApplications() ([]string, error) {
 	return apps, nil
 }
 
+// LinuxQuitApp ... Quit a desktop application for a linux system
+func LinuxQuitApp(name string) error {
+	if err := checkLinuxOS(); err != nil {
+		return err
+	}
+	cleanedName := strings.ReplaceAll(name, " ", "\\ ")
+	err := exec.Command("pkill", "-x", cleanedName).Run()
+	return err
+}
+
 func checkLinuxOS() error {
 	if runtime.GOOS != "linux" {
 		return errors.New("Wrong OS, only linux system supported")
