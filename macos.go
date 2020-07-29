@@ -1,4 +1,4 @@
-package runningapps
+package desktop
 
 import (
 	"errors"

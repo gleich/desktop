@@ -1,6 +1,6 @@
 <!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich"]:end -->
 
-# runningapps
+# desktop
 
 📦 Golang package for interfacing with desktop applications
 
