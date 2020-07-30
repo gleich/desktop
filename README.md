@@ -6,6 +6,12 @@
 
 ![format](https://github.com/Matt-Gleich/runningapps/workflows/format/badge.svg)
 
+## 🚀 Install
+
+```txt
+go get github.com/Matt-Gleich/desktop
+```
+
 ## 📝 Documentation
 
 ### 🍎 MacOS
@@ -64,7 +70,7 @@ func main() {
 
 ⚠️ **Warning!! This function requires the `wmctrl` tool to be installed. Please install it with your package manager**
 
-Get a list of all running desktop applications for any linux based operating system. Returns a list containing the parent executable names of the running applications and any error that might have occurred.
+Get a list of all running desktop applications for any linux based operating system. Returns a list containing the names of the running applications and any error that might have occurred.
 
 Example:
 
@@ -89,7 +95,7 @@ func main() {
 
 #### `LinuxQuitApp()`
 
-Kill an application by passing the name of the executable running the application. Returns any error that might have occurred.
+Kill an application by passing the name of the application. Returns any error that might have occurred.
 
 Example:
 
