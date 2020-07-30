@@ -2,7 +2,6 @@ package desktop
 
 import (
 	"errors"
-	"fmt"
 	"os/exec"
 	"runtime"
 	"strings"
@@ -57,17 +56,12 @@ func LinuxQuitApp(name string) error {
 	}
 	xpropcmd, err := exec.Command("xprop", "-name", name, "_NET_WM_PID").Output()
 	if err != nil {
-		fmt.Println("Xprop failed")
 		return err
 	}
 	xpropcmdChunks := strings.Split(string(xpropcmd), " ")
 	pid := strings.Trim(xpropcmdChunks[len(xpropcmdChunks)-1], "\n")
-	fmt.Printf("%#v", pid)
 
 	err = exec.Command("kill", pid).Run()
-	if err != nil {
-		fmt.Println("Kill failed")
-	}
 	return err
 }
 
