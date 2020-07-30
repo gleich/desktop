@@ -2,12 +2,10 @@ package desktop
 
 import (
 	"errors"
+	"fmt"
 	"os/exec"
 	"runtime"
-	"strconv"
 	"strings"
-
-	"github.com/mitchellh/go-ps"
 )
 
 // LinuxApplications ... Get a list of running desktop application for a linux system
@@ -21,40 +19,33 @@ func LinuxApplications() ([]string, error) {
 		return []string{}, errors.New("The wmctrl tool is required to get a list of applications")
 	}
 
-	out, err := exec.Command("wmctrl", "-lp").Output()
+	out, err := exec.Command("wmctrl", "-l").Output()
 	if err != nil {
 		return []string{}, err
 	}
 
 	lines := strings.Split(string(out), "\n")
-	pids := []int{}
+	apps := []string{}
 	for _, window := range lines {
 		wmctrlColumns := strings.Split(window, " ")
 		if len(wmctrlColumns) != 1 {
-			pid64, err := strconv.ParseInt(wmctrlColumns[3], 10, 64)
-			pid := int(pid64)
+			windowID := wmctrlColumns[0]
+			xpropcmd, err := exec.Command("xprop", "-id", windowID, "WM_CLASS").Output()
 			if err != nil {
 				return []string{}, err
 			}
+			xpropcmdChunks := strings.Split(string(xpropcmd), " ")
+			app := strings.Trim(xpropcmdChunks[len(xpropcmdChunks)-1], "\"\n")
 			var found bool
-			for _, addedPid := range pids {
-				if pid == addedPid {
+			for _, addedApp := range apps {
+				if addedApp == app {
 					found = true
 				}
 			}
 			if !found {
-				pids = append(pids, pid)
+				apps = append(apps, app)
 			}
 		}
-	}
-
-	apps := []string{}
-	for _, pid := range pids {
-		process, err := ps.FindProcess(pid)
-		if err != nil {
-			return []string{}, err
-		}
-		apps = append(apps, process.Executable())
 	}
 	return apps, nil
 }
@@ -64,8 +55,19 @@ func LinuxQuitApp(name string) error {
 	if err := checkLinuxOS(); err != nil {
 		return err
 	}
-	cleanedName := strings.ReplaceAll(name, " ", "\\ ")
-	err := exec.Command("pkill", "-x", cleanedName).Run()
+	xpropcmd, err := exec.Command("xprop", "-name", name, "_NET_WM_PID").Output()
+	if err != nil {
+		fmt.Println("Xprop failed")
+		return err
+	}
+	xpropcmdChunks := strings.Split(string(xpropcmd), " ")
+	pid := strings.Trim(xpropcmdChunks[len(xpropcmdChunks)-1], "\n")
+	fmt.Printf("%#v", pid)
+
+	err = exec.Command("kill", pid).Run()
+	if err != nil {
+		fmt.Println("Kill failed")
+	}
 	return err
 }
 
