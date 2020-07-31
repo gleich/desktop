@@ -55,18 +55,11 @@ func LinuxApplications() (map[string]int, error) {
 }
 
 // LinuxQuitApp ... Quit a desktop application for a linux system
-func LinuxQuitApp(name string) error {
+func LinuxQuitApp(pid int) error {
 	if err := checkLinuxOS(); err != nil {
 		return err
 	}
-	xpropcmd, err := exec.Command("xprop", "-name", name, "_NET_WM_PID").Output()
-	if err != nil {
-		return err
-	}
-	xpropcmdChunks := strings.Split(string(xpropcmd), " ")
-	pid := strings.Trim(xpropcmdChunks[len(xpropcmdChunks)-1], "\n")
-
-	err = exec.Command("kill", pid).Run()
+	err := exec.Command("kill", string(pid)).Run()
 	return err
 }
 
