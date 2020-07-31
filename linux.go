@@ -17,7 +17,7 @@ func LinuxApplications() (map[string]int, error) {
 
 	_, err := exec.LookPath("wmctrl")
 	if err != nil {
-		return map[string]int{}, errors.New("The wmctrl tool is required to get a list of applications")
+		return map[string]int{}, errors.New("The wmctrl tool is required to get a list of applications. Please install it with your package manager")
 	}
 
 	out, err := exec.Command("wmctrl", "-lp").Output()
