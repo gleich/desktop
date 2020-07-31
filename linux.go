@@ -4,45 +4,50 @@ import (
 	"errors"
 	"os/exec"
 	"runtime"
+	"strconv"
 	"strings"
 )
 
 // LinuxApplications ... Get a list of running desktop application for a linux system
-func LinuxApplications() ([]string, error) {
+func LinuxApplications() (map[string]int, error) {
 	if err := checkLinuxOS(); err != nil {
-		return []string{}, err
+		return map[string]int{}, err
 	}
 
 	_, err := exec.LookPath("wmctrl")
 	if err != nil {
-		return []string{}, errors.New("The wmctrl tool is required to get a list of applications")
+		return map[string]int{}, errors.New("The wmctrl tool is required to get a list of applications")
 	}
 
-	out, err := exec.Command("wmctrl", "-l").Output()
+	out, err := exec.Command("wmctrl", "-lp").Output()
 	if err != nil {
-		return []string{}, err
+		return map[string]int{}, err
 	}
 
 	lines := strings.Split(string(out), "\n")
-	apps := []string{}
+	apps := map[string]int{}
 	for _, window := range lines {
 		wmctrlColumns := strings.Split(window, " ")
 		if len(wmctrlColumns) != 1 {
 			windowID := wmctrlColumns[0]
+			appPID, err := strconv.Atoi(wmctrlColumns[3])
+			if err != nil {
+				return map[string]int{}, err
+			}
 			xpropcmd, err := exec.Command("xprop", "-id", windowID, "WM_CLASS").Output()
 			if err != nil {
-				return []string{}, err
+				return map[string]int{}, err
 			}
 			xpropcmdChunks := strings.Split(string(xpropcmd), " ")
 			app := strings.Trim(xpropcmdChunks[len(xpropcmdChunks)-1], "\"\n")
 			var found bool
-			for _, addedApp := range apps {
+			for addedApp := range apps {
 				if addedApp == app {
 					found = true
 				}
 			}
 			if !found {
-				apps = append(apps, app)
+				apps[app] = appPID
 			}
 		}
 	}
