@@ -70,7 +70,7 @@ func main() {
 
 ⚠️ **Warning!! This function requires the `wmctrl` tool to be installed. Please install it with your package manager**
 
-Get a list of all running desktop applications for any linux based operating system. Returns a list containing the names of the running applications and any error that might have occurred.
+Get a list of all running desktop applications for any linux based operating system. Returns a map containing the names of the running desktop applications and their corresponding [PIDs](https://www.computerhope.com/jargon/p/pid.htm) and any error that might have occurred.
 
 Example:
 
@@ -95,7 +95,7 @@ func main() {
 
 #### `LinuxQuitApp()`
 
-Kill an application by passing the name of the application. Returns any error that might have occurred.
+Kill an application by passing the [PID](https://www.computerhope.com/jargon/p/pid.htm). Returns any error that might have occurred.
 
 Example:
 
@@ -110,7 +110,7 @@ import (
 )
 
 func main() {
-    err := desktop.LinuxQuitApp("firefox")
+    err := desktop.LinuxQuitApp(72667)
     if err != nil {
         fmt.Println(err)
         os.Exit(1)
