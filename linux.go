@@ -29,9 +29,15 @@ func LinuxApplications() (map[string]int, error) {
 	apps := map[string]int{}
 	for _, window := range lines {
 		wmctrlColumns := strings.Split(window, " ")
+		wmctrlColumnsCleaned := []string{}
+		for _, column := range wmctrlColumns {
+			if column != "" {
+				wmctrlColumnsCleaned = append(wmctrlColumnsCleaned, column)
+			}
+		}
 		if len(wmctrlColumns) != 1 {
 			windowID := wmctrlColumns[0]
-			appPID, err := strconv.Atoi(wmctrlColumns[3])
+			appPID, err := strconv.Atoi(wmctrlColumnsCleaned[2])
 			if err != nil {
 				return map[string]int{}, err
 			}
