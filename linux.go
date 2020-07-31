@@ -2,6 +2,7 @@ package desktop
 
 import (
 	"errors"
+	"fmt"
 	"os/exec"
 	"runtime"
 	"strconv"
@@ -59,7 +60,7 @@ func LinuxQuitApp(pid int) error {
 	if err := checkLinuxOS(); err != nil {
 		return err
 	}
-	err := exec.Command("kill", string(pid)).Run()
+	err := exec.Command("kill", fmt.Sprintf("%v", pid)).Run()
 	return err
 }
 
