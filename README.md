@@ -1,15 +1,15 @@
-<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich"]:end -->
+<!-- DO NOT REMOVE - contributor_list:data:start:["gleich"]:end -->
 
 # desktop
 
 📦 Golang package for interfacing with desktop applications
 
-![format](https://github.com/Matt-Gleich/runningapps/workflows/format/badge.svg)
+![format](https://github.com/gleich/runningapps/workflows/format/badge.svg)
 
 ## 🚀 Install
 
 ```txt
-go get github.com/Matt-Gleich/desktop
+go get github.com/gleich/desktop
 ```
 
 ## 📝 Documentation
@@ -29,7 +29,7 @@ import (
     "fmt"
     "os"
 
-    "github.com/Matt-Gleich/desktop"
+    "github.com/gleich/desktop"
 )
 
 func main() {
@@ -52,7 +52,7 @@ import (
     "fmt"
     "os"
 
-    "github.com/Matt-Gleich/desktop"
+    "github.com/gleich/desktop"
 )
 
 func main() {
@@ -81,7 +81,7 @@ import (
     "fmt"
     "os"
 
-    "github.com/Matt-Gleich/desktop"
+    "github.com/gleich/desktop"
 )
 
 func main() {
@@ -106,7 +106,7 @@ import (
     "fmt"
     "os"
 
-    "github.com/Matt-Gleich/desktop"
+    "github.com/gleich/desktop"
 )
 
 func main() {
@@ -122,6 +122,6 @@ func main() {
 
 ## 👥 Contributors
 
-- **[@Matt-Gleich](https://github.com/Matt-Gleich)**
+- **[@gleich](https://github.com/gleich)**
 
 <!-- DO NOT REMOVE - contributor_list:end -->

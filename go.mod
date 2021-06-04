@@ -1,3 +1,3 @@
-module github.com/Matt-Gleich/desktop
+module github.com/gleich/desktop
 
 go 1.14
