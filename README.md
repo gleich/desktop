@@ -18,7 +18,7 @@ go get github.com/gleich/desktop
 
 #### `MacOSApplications()`
 
-Get a list of all running desktop applications for the mac operating system. Returns a list containing the names of the running applications and any error that might have occurred.
+Get a list of all running desktop applications for the mac operating system. Returns a list containing the names of the running applications and any error that might have occurred. There is also an optional `includeMenubarApps` parameter: if set to `true` it will also include applications running in the menubar.
 
 Example:
 
@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-    apps, err := desktop.MacOSApplications()
+    apps, err := desktop.MacOSApplications(includeMenubarApps bool)
     if err != nil {
         fmt.Println(err)
         os.Exit(1)
