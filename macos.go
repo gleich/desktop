@@ -8,11 +8,35 @@ import (
 )
 
 // MacOSApplications ... Get a list of all running desktop applications for a mac system
-func MacOSApplications() ([]string, error) {
+func MacOSApplications(includeMenubarApps bool) ([]string, error) {
 	if err := checkMacOS(); err != nil {
 		return []string{}, err
 	}
-	out, err := exec.Command("osascript", "-e", `tell application "System Events" to get name of (processes where background only is false)`).Output()
+
+	var command string
+	if includeMenubarApps {
+		command = `
+			set nonAppleApps to ""
+			tell application "System Events"
+				set allApps to get name of processes
+				repeat with oneApp in allApps
+					set oneAppId to get bundle identifier of the process named oneApp
+					if oneAppId does not contain "com.apple" and oneAppId is not missing value then
+						if nonAppleApps is not "" then
+							set nonAppleApps to nonAppleApps & ", "
+						end if
+						set nonAppleApps to nonAppleApps & oneApp
+					end if
+				end repeat
+			end tell
+			return nonAppleApps
+		`
+	} else {
+		command = `tell application "System Events" to get name of (processes where background only is false)`
+	}
+
+	out, err := exec.Command("osascript", "-e", command).Output()
+
 	if err != nil {
 		err := exec.Command("osascript", "-e", `tell application "System Events" to activate`).Run()
 		return []string{}, err
